@@ -6,16 +6,44 @@
 }
 
 @theme inline {
+    /* Fonts */
+    --font-sans: var(--font-text);
+    --font-title: var(--font-title);
+    --font-accent: var(--font-accent);
+
+    /* Colors */
     --color-background: var(--background);
     --color-foreground: var(--foreground);
-    --font-sans: var(--font-geist-sans);
-    --font-mono: var(--font-geist-mono);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-element: var(--element);
+
+    --color-star: var(--star);
+    --color-red: var(--red);
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
+        /* Background */
         --background: #ffffff;
         --foreground: #0d0d0c;
+
+        /* Primary */
+        --primary: #1ca8cb;
+        --primary-foreground: #113d48;
+
+        /* Secondary */
+        --secondary: #6e7070;
+
+        /* Element */
+        --element: #e9f6f9;
+
+        /* Misc */
+        --star: #ffa944;
+        --red: #e35734;
     }
 }
 
