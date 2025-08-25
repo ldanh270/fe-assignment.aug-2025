@@ -1,16 +1,28 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Inter, Manrope, Montez } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const text = Inter({
+    variable: "--font-text",
+    weight: [ "400", "500", "600", "700" ],
+    subsets: ["latin"],
+    display: "swap",
+})
+
+const title = Manrope({
+    variable: "--font-title",
+    weight: [ "400", "500", "600", "700" ],
+    subsets: ["latin"],
+    display: "swap",
+})
+
+const accent = Montez({
+    variable: "--font-accent",
+    weight: [ "400" ],
+    subsets: ["latin"],
+    display: "swap",
+})
 
 export const metadata: Metadata = {
   title: "A1 - Tour Landing Page",
@@ -18,14 +30,14 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+    return (
+        <html lang="en">
+            <body
+                className={`${text.variable} ${accent.variable} ${title.variable} antialiased`}
       >
         {children}
       </body>
