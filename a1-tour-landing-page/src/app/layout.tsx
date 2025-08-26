@@ -1,3 +1,5 @@
+import Header from '@/components/layout/header'
+
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Inter, Manrope, Montez } from 'next/font/google'
 
@@ -37,7 +39,10 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${text.variable} ${accent.variable} ${title.variable} antialiased`}>
-                {children}
+                <div id="header">
+                    <Header />
+                </div>
+                <div id="content">{children}</div>
             </body>
         </html>
     )
