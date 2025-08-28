@@ -1,6 +1,6 @@
 import Divider from '@/components/common/divider'
-import { LanguageToggle } from '@/components/layout/header/components/language-toggle'
-import { NavToggle } from '@/components/layout/header/components/nav-toggle'
+import { NavToggle } from '@/components/common/nav-toggle'
+import { LanguageToggle } from '@/components/header/language-toggle'
 
 import Image from 'next/image'
 import Link from 'next/link'

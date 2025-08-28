@@ -1,5 +1,5 @@
-import Lower from '@/components/layout/header/lower'
-import Upper from '@/components/layout/header/upper'
+import Lower from '@/components/header/lower'
+import Upper from '@/components/header/upper'
 
 export default function Header() {
     return (

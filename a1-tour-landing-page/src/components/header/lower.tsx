@@ -1,5 +1,5 @@
-import { NavToggle } from '@/components/layout/header/components/nav-toggle'
-import Logo from '@/components/layout/header/logo'
+import { NavToggle } from '@/components/common/nav-toggle'
+import Logo from '@/components/header/logo'
 import { Button } from '@/components/ui/button'
 
 import Image from 'next/image'
