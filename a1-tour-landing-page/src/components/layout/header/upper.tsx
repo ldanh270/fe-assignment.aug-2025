@@ -40,9 +40,13 @@ export default function Upper() {
             >
                 <LanguageToggle />
                 <div className="flex-row items-center justify-center gap-6">
-                    <Link href="/faq">Faq</Link>
+                    <Link href="/faq" className="cursor-pointer hover:text-secondary">
+                        Faq
+                    </Link>
                     <Divider orientation="vertical" />
-                    <Link href="/support">Support</Link>
+                    <Link href="/support" className="cursor-pointer hover:text-secondary">
+                        Support
+                    </Link>
                     <Divider orientation="vertical" />
                     <NavToggle
                         variant="link"
