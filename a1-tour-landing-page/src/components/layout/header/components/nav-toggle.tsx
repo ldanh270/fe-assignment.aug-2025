@@ -7,7 +7,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { ButtonSize, ButtonVariant } from '@/constants/ui-attibutes/button-variants'
+import { ButtonSize, ButtonVariant } from '@/constants/ui-attibutes/button'
 
 import * as React from 'react'
 
