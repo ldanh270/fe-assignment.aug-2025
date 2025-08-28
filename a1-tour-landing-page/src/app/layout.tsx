@@ -1,4 +1,4 @@
-import Header from '@/components/layout/header'
+import Header from '@/layout/core/header'
 
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Inter, Manrope, Montez } from 'next/font/google'
