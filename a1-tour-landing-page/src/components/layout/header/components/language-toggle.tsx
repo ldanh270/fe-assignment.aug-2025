@@ -8,18 +8,21 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-import * as React from 'react'
+import { useState } from 'react'
 
 import Image from 'next/image'
 
 export function LanguageToggle() {
+    const [open, setOpen] = useState(false)
     return (
-        <DropdownMenu>
+        <DropdownMenu open={open} onOpenChange={setOpen}>
             <DropdownMenuTrigger asChild>
                 <Button
                     variant="outline"
                     size="default"
                     className="w-[100px] h-[34px] flex flex-row justify-center items-center rounded-full font-text font-normal px-3 gap-0 cursor-pointer"
+                    onMouseEnter={() => setOpen(true)}
+                    onMouseLeave={() => setOpen(false)}
                 >
                     <span className="scale-100 rotate-0">Language</span>
                     <span className="absolute scale-0 rotate-90">Ngôn ngữ</span>
@@ -34,7 +37,12 @@ export function LanguageToggle() {
                     <span className="sr-only">Toggle language</span>
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="center">
+            <DropdownMenuContent
+                align="center"
+                onMouseEnter={() => setOpen(true)}
+                onMouseLeave={() => setOpen(false)}
+                className="*:cursor-pointer"
+            >
                 <DropdownMenuItem>English</DropdownMenuItem>
                 <DropdownMenuItem>Tiếng Việt</DropdownMenuItem>
             </DropdownMenuContent>
