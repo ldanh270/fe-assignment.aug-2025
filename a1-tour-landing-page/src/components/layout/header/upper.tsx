@@ -49,11 +49,11 @@ export default function Upper() {
                         variant="link"
                         dropdownOptions={[
                             {
-                                label: 'Sign in',
+                                name: 'Sign in',
                                 href: '/login',
                             },
                             {
-                                label: 'Register',
+                                name: 'Register',
                                 href: '/register',
                             },
                         ]}
