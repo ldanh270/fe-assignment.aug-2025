@@ -59,7 +59,9 @@ export function NavToggle({
             >
                 {dropdownOptions?.map((option) => (
                     <DropdownMenuItem key={option.href} asChild>
-                        <Link href={option.href}>{option.name}</Link>
+                        <Link href={option.href} className="cursor-pointer">
+                            {option.name}
+                        </Link>
                     </DropdownMenuItem>
                 ))}
             </DropdownMenuContent>
