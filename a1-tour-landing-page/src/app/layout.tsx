@@ -1,7 +1,7 @@
 import Header from '@/layout/core/header'
 
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Inter, Manrope, Montez } from 'next/font/google'
+import { Inter, Manrope, Montez } from 'next/font/google'
 
 import './globals.css'
 
