@@ -35,5 +35,10 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "typescript.format.insertSpaceAfterCommaDelimiter": true,
-    "prettier.singleAttributePerLine": true
+    "prettier.singleAttributePerLine": true,
+    "prettier.useTabs": true,
+    "workbench.externalBrowser": "edge",
+    "workbench.editor.enablePreview": false,
+    "editor.acceptSuggestionOnEnter": "off",
+    "notebook.defaultFormatter": "esbenp.prettier-vscode"
 }
