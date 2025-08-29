@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-export default function ForwardArrow({ className }: { className: string }) {
+export default function ForwardArrow({ className }: { className?: string }) {
     return (
         <Image
             src="/forward-arrow.svg"
