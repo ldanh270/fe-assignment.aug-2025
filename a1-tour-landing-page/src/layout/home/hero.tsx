@@ -19,7 +19,10 @@ export default function Hero() {
                         <span className="text-[1rem]">Explore Tours</span>
                         <ForwardArrow />
                     </Button>
-                    <Button variant="outline" className="bg-transparent rounded-full w-52 h-16">
+                    <Button
+                        variant="outline"
+                        className="bg-transparent rounded-full w-52 h-16 hover:bg-input"
+                    >
                         <span className="text-[1rem]">Our Services</span>
                         <ForwardArrow />
                     </Button>
