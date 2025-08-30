@@ -45,7 +45,6 @@ export default function Hero() {
                     </Button>
                 </div>
             </div>
-            <div id="filter"></div>
         </div>
     )
 }
