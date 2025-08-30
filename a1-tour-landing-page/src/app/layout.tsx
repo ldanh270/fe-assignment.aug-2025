@@ -39,7 +39,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${text.variable} ${accent.variable} ${title.variable} antialiased`}>
-                <div id="header">
+                <div id="header" className="sticky top-0">
                     <Header />
                 </div>
                 <div id="content">{children}</div>
