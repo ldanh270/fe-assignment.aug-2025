@@ -30,16 +30,12 @@ export default function TourFilter() {
     return (
         <div className="relative bottom-13 bg-background flex flex-row justify-center items-center px-8 py-6 gap-6 border-2 border-primary rounded-2xl w-fit mx-auto">
             {filters.map((item) => (
-                <TourOption key={item.label} className="w-62 after:" dropdownOptions={item.options}>
-                    <Image
-                        src={item.icon}
-                        alt={`${item.label} filter`}
-                        width={20}
-                        height={20}
-                        className="fill-background w-5 h-5 mr-2"
-                    />
-                    <span className="text-secondary flex-1 text-left">{item.label}</span>
-                </TourOption>
+                <TourOption
+                    key={item.label}
+                    main={item}
+                    dropdownOptions={item.options}
+                    className="w-62 relative after:content-[''] after:block after:w-[1px] after:h-10 after:bg-border hover:bg-transparent"
+                />
             ))}
             <Button
                 variant="default"
