@@ -68,12 +68,12 @@ export default function Category() {
                     </div>
                 </div>
 
-                <div id="dots" className="m-5 flex w-full items-center justify-center gap-3">
+                <div id="dots" className="m-5 flex w-full items-center justify-center gap-8">
                     {[1, 2, 3, 4, 5].map((i) => (
                         <button
                             key={i}
                             className={[
-                                'h-2 w-2 rounded-full transition border-primary border',
+                                'h-4 w-4 rounded-full transition border-primary border',
                                 1 === i ? 'bg-primary' : 'bg-muted',
                             ].join(' ')}
                         />
