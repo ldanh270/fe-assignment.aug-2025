@@ -38,10 +38,10 @@ export default function Card({
     return (
         <div
             style={arcStyle(place, NUMBER_OF_CARDS)}
-            className={`snap-start shrink-0 w-[78%] sm:w-[32%] lg:w-[200px] flex flex-col items-center] ${className}`}
+            className={`items-center] flex w-[78%] shrink-0 snap-start flex-col sm:w-[32%] lg:w-[200px] ${className}`}
         >
             {/* image */}
-            <div className="w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-sm ring-1 ring-border/40 cursor-pointer hover:scale-110 transition-transform select-none">
+            <div className="ring-border/40 aspect-[4/5] w-full cursor-pointer overflow-hidden rounded-3xl shadow-sm ring-1 transition-transform select-none hover:scale-110">
                 <img
                     src={item.image}
                     alt={item.name}
@@ -53,7 +53,7 @@ export default function Card({
             {/* label */}
             <div className="mt-3 text-center">
                 <div className="font-title font-semibold">{item.name}</div>
-                <button className="mt-1 text-xs text-muted-foreground hover:text-secondary underline-offset-4 hover:underline">
+                <button className="text-muted-foreground hover:text-secondary mt-1 text-xs underline-offset-4 hover:underline">
                     See More
                 </button>
             </div>

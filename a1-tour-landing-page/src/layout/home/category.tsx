@@ -43,20 +43,20 @@ const CATEGORIES: CategoryItem[] = [
 
 export default function Category() {
     return (
-        <div className="w-full flex flex-col justify-center items-center">
+        <div className="flex w-full flex-col items-center justify-center">
             <div id="title">
-                <div className="font-accent text-4xl text-center">Wornderful Place For You</div>
-                <div className="font-title font-bold text-5xl text-center">Tour Categories</div>
+                <div className="font-accent text-center text-4xl">Wornderful Place For You</div>
+                <div className="font-title text-center text-5xl font-bold">Tour Categories</div>
             </div>
             <div
                 id="slider"
-                className="w-full self-center mt-25 flex flex-col justify-center items-center"
+                className="mt-25 flex w-full flex-col items-center justify-center self-center"
             >
                 <div
                     id="track"
-                    className="w-full flex flex-row mx-auto justify-between overflow-x-auto scroll-smooth snap-x snap-mandatory px-4 lg:overflow-visible lg:px-0"
+                    className="mx-auto flex w-full snap-x snap-mandatory flex-row justify-between overflow-x-auto scroll-smooth px-4 lg:overflow-visible lg:px-0"
                 >
-                    <div className="flex mx-auto gap-6 lg:justify-between ">
+                    <div className="mx-auto flex gap-6 lg:justify-between">
                         {CATEGORIES.map((item, index) => (
                             <Card
                                 key={item.id}
@@ -73,7 +73,7 @@ export default function Category() {
                         <button
                             key={i}
                             className={[
-                                'h-4 w-4 rounded-full transition border-primary border',
+                                'border-primary h-4 w-4 rounded-full border transition',
                                 1 === i ? 'bg-primary' : 'bg-muted',
                             ].join(' ')}
                         />
