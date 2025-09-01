@@ -52,7 +52,7 @@ export default function Card({
 
             {/* label */}
             <div className="mt-3 text-center">
-                <div className="font-title text-base">{item.name}</div>
+                <div className="font-title font-semibold">{item.name}</div>
                 <button className="mt-1 text-xs text-muted-foreground hover:text-secondary underline-offset-4 hover:underline">
                     See More
                 </button>
