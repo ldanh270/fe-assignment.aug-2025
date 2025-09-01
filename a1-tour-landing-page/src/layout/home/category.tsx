@@ -68,7 +68,7 @@ export default function Category() {
                     </div>
                 </div>
 
-                <div id="dots" className="m-5 flex w-full items-center justify-center gap-8">
+                <div id="dots" className="flex w-full items-center justify-center gap-8">
                     {[1, 2, 3, 4, 5].map((i) => (
                         <button
                             key={i}
