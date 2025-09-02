@@ -75,8 +75,8 @@ export default function DestinationSlider() {
         <section className="w-full py-12">
             {/* Section title */}
             <div className="mb-10 text-center">
-                <p className="text-sm text-emerald-600">Top Destination</p>
-                <h2 className="text-2xl font-bold">Popular Destination</h2>
+                <p className="font-accent text-primary-foreground text-4xl">Top Destination</p>
+                <h2 className="font-title text-5xl font-bold">Popular Destination</h2>
             </div>
 
             <div className="relative mx-auto">
