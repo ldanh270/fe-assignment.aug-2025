@@ -12,64 +12,56 @@ const DESTINATIONS: Destination[] = [
     { name: 'Vietnam', listing: 25, image: '/destinations/des5.jpg' },
 ]
 
-export default function DestinationSlider() {
-    // Index of the card currently in the center
-    const [activeIndex, setActiveIndex] = useState(2)
+// khoảng cách có dấu ngắn nhất trên vòng tròn
+const signedDist = (from: number, to: number, n: number) => {
+    const raw = (to - from + n) % n
+    return raw <= n / 2 ? raw : raw - n
+}
+const clampIndex = (i: number, n: number) => (i + n) % n
 
-    const trackRef = useRef<HTMLDivElement>(null)
+export default function Destination() {
+    const [activeIndex, setActiveIndex] = useState(2)
     const autoStepTimer = useRef<number | null>(null)
 
-    // Keep index inside the array range
-    const clampIndex = (i: number) => (i + DESTINATIONS.length) % DESTINATIONS.length
-
-    const goNext = () => setActiveIndex((i) => clampIndex(i + 1))
-    const goPrev = () => setActiveIndex((i) => clampIndex(i - 1))
+    const goNext = () => setActiveIndex((i) => clampIndex(i + 1, DESTINATIONS.length))
+    const goPrev = () => setActiveIndex((i) => clampIndex(i - 1, DESTINATIONS.length))
 
     // Smoothly move any card into the center
     const goToIndex = (targetIndex: number) => {
         if (targetIndex === activeIndex) return
-
         const N = DESTINATIONS.length
-        // Shortest path in a circular list
-        const raw = (targetIndex - activeIndex + N) % N
-        const steps = raw <= N / 2 ? raw : raw - N // negative = left, positive = right
 
-        // Clear previous timer if still running
         if (autoStepTimer.current) {
             window.clearTimeout(autoStepTimer.current)
             autoStepTimer.current = null
         }
 
-        // Step through multiple moves to animate
-        const stepOnce = (remain: number) => {
+        let remain = signedDist(activeIndex, targetIndex, N)
+        const stepOnce = () => {
             if (remain === 0) return
-            if (remain > 0) goNext()
-            else goPrev()
-            autoStepTimer.current = window.setTimeout(
-                () => stepOnce(remain > 0 ? remain - 1 : remain + 1),
-                120,
-            )
+            setActiveIndex((i) => clampIndex(i + (remain > 0 ? 1 : -1), N))
+            remain += remain > 0 ? -1 : 1
+            autoStepTimer.current = window.setTimeout(stepOnce, 120)
         }
-
-        stepOnce(steps)
+        stepOnce()
     }
 
-    // Compute the 5 visible indexes (left2, left1, center, right1, right2)
-    const orderedIndexes = useMemo(() => {
-        const res: number[] = []
-        for (let offset = -2; offset <= 2; offset++) res.push(clampIndex(activeIndex + offset))
-        return res
-    }, [activeIndex])
-
     // Swipe handling (mobile)
-    let touchStartX = 0
-    const handleTouchStart = (e: React.TouchEvent) => (touchStartX = e.touches[0].clientX)
+    const touchStartX = useRef(0)
+    const handleTouchStart = (e: React.TouchEvent) => (touchStartX.current = e.touches[0].clientX)
     const handleTouchEnd = (e: React.TouchEvent) => {
-        const dx = e.changedTouches[0].clientX - touchStartX
+        const dx = e.changedTouches[0].clientX - touchStartX.current
         if (Math.abs(dx) < 30) return
         if (dx < 0) goNext()
         else goPrev()
     }
+
+    // chỉ 5 cái gần center là “hiện rõ”, còn lại ẩn mềm nhưng vẫn mounted
+    const visibleRadius = 2
+    const N = DESTINATIONS.length
+
+    // giữ memo nếu muốn dùng thêm
+    useMemo(() => activeIndex, [activeIndex])
 
     return (
         <section className="w-full py-12">
@@ -81,41 +73,40 @@ export default function DestinationSlider() {
 
             <div className="relative mx-auto">
                 <div
-                    ref={trackRef}
                     onTouchStart={handleTouchStart}
                     onTouchEnd={handleTouchEnd}
                     className="relative h-[636px] select-none sm:h-[420px]"
                 >
-                    {orderedIndexes.map((itemIndex, positionIndex) => {
-                        // PositionIndex = 0..4, where 2 = center
-                        const offsetFromCenter = positionIndex - 2
-                        const translateX = offsetFromCenter * 170
-                        const scale = 1 - Math.abs(offsetFromCenter) * 0.07
-                        const zIndex = 100 - Math.abs(offsetFromCenter)
+                    {DESTINATIONS.map((item, i) => {
+                        const d = signedDist(activeIndex, i, N) // …,-2,-1,0,1,2,…
+                        const absD = Math.abs(d)
+                        const isCenter = d === 0
+                        const isVisible = absD <= visibleRadius
 
-                        const isCenter = positionIndex === 2
-                        const isClickable = !isCenter
+                        const translateX = d * 170
+                        const scale = 1 - Math.min(absD, visibleRadius) * 0.07
+                        const zIndex = 100 - Math.min(absD, visibleRadius)
 
                         return (
                             <article
-                                key={itemIndex}
-                                onClick={() => isClickable && goToIndex(itemIndex)}
-                                className={`h-100vh absolute top-1/2 left-1/2 w-full origin-center overflow-hidden rounded-3xl shadow-md transition-[transform,filter] duration-500 ease-out ${
-                                    isClickable ? 'cursor-pointer' : ''
-                                }`}
+                                key={i}
+                                onClick={() => !isCenter && goToIndex(i)}
+                                className={`absolute top-1/2 left-1/2 origin-center overflow-hidden rounded-3xl shadow-md transition-[transform,filter,opacity] duration-500 ease-out ${!isCenter ? 'cursor-pointer' : ''}`}
                                 style={{
                                     width: 288,
                                     height: 424,
                                     transform: `translate(-50%,-50%) translateX(${translateX}px) scale(${scale})`,
                                     zIndex,
-                                    // apply only if not center
-                                    filter: !isCenter ? 'blur(2px) brightness(0.7)' : 'none',
+                                    filter: isCenter ? 'none' : 'blur(2px) brightness(0.7)',
+                                    opacity: isVisible ? 1 : 0,
+                                    pointerEvents: isVisible ? 'auto' : 'none',
+                                    willChange: 'transform, filter, opacity',
                                 }}
                             >
                                 {/* Image */}
                                 <img
-                                    src={DESTINATIONS[itemIndex].image}
-                                    alt={DESTINATIONS[itemIndex].name}
+                                    src={item.image}
+                                    alt={item.name}
                                     className="h-full w-full object-cover"
                                     draggable={false}
                                 />
@@ -124,14 +115,16 @@ export default function DestinationSlider() {
                                 <div className="absolute inset-x-0 bottom-0 flex flex-row justify-between bg-gradient-to-t from-black/60 to-transparent p-4 text-white">
                                     <div>
                                         <div className="font-title text-2xl font-semibold">
-                                            {DESTINATIONS[itemIndex].name}
+                                            {item.name}
                                         </div>
                                         <div className="text-xs opacity-90">
-                                            {DESTINATIONS[itemIndex].listing} Listing
+                                            {item.listing} Listing
                                         </div>
                                     </div>
                                     <button
-                                        className={`mt-2 cursor-pointer rounded-full border border-white/60 bg-white/20 px-4 py-1.5 text-xs font-medium backdrop-blur ${isCenter ?? 'hover:bg-white/40'}`}
+                                        className={`mt-2 cursor-pointer rounded-full border border-white/60 bg-white/20 px-4 py-1.5 text-xs font-medium backdrop-blur ${
+                                            isCenter ? 'hover:bg-white/40' : ''
+                                        }`}
                                     >
                                         View All →
                                     </button>
