@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 type Destination = { name: string; listing: number; image: string }
 
@@ -12,41 +12,26 @@ const DESTINATIONS: Destination[] = [
     { name: 'Vietnam', listing: 25, image: '/destinations/des5.jpg' },
 ]
 
-// khoảng cách có dấu ngắn nhất trên vòng tròn
+// Calculate distance
 const signedDist = (from: number, to: number, n: number) => {
     const raw = (to - from + n) % n
     return raw <= n / 2 ? raw : raw - n
 }
-const clampIndex = (i: number, n: number) => (i + n) % n
 
 export default function Destination() {
     const [activeIndex, setActiveIndex] = useState(2)
-    const autoStepTimer = useRef<number | null>(null)
+    const N = DESTINATIONS.length
+    const visibleRadius = 2
 
-    const goNext = () => setActiveIndex((i) => clampIndex(i + 1, DESTINATIONS.length))
-    const goPrev = () => setActiveIndex((i) => clampIndex(i - 1, DESTINATIONS.length))
+    const goNext = () => setActiveIndex((i) => (i + 1 + N) % N)
+    const goPrev = () => setActiveIndex((i) => (i - 1 + N) % N)
 
-    // Smoothly move any card into the center
-    const goToIndex = (targetIndex: number) => {
-        if (targetIndex === activeIndex) return
-        const N = DESTINATIONS.length
-
-        if (autoStepTimer.current) {
-            window.clearTimeout(autoStepTimer.current)
-            autoStepTimer.current = null
-        }
-
-        let remain = signedDist(activeIndex, targetIndex, N)
-        const stepOnce = () => {
-            if (remain === 0) return
-            setActiveIndex((i) => clampIndex(i + (remain > 0 ? 1 : -1), N))
-            remain += remain > 0 ? -1 : 1
-            autoStepTimer.current = window.setTimeout(stepOnce, 120)
-        }
-        stepOnce()
+    const goToIndex = (target: number) => {
+        if (target === activeIndex) return
+        setActiveIndex(target) // Change index
     }
 
-    // Swipe handling (mobile)
+    // Swipe mobile
     const touchStartX = useRef(0)
     const handleTouchStart = (e: React.TouchEvent) => (touchStartX.current = e.touches[0].clientX)
     const handleTouchEnd = (e: React.TouchEvent) => {
@@ -56,16 +41,8 @@ export default function Destination() {
         else goPrev()
     }
 
-    // chỉ 5 cái gần center là “hiện rõ”, còn lại ẩn mềm nhưng vẫn mounted
-    const visibleRadius = 2
-    const N = DESTINATIONS.length
-
-    // giữ memo nếu muốn dùng thêm
-    useMemo(() => activeIndex, [activeIndex])
-
     return (
         <section className="w-full py-12">
-            {/* Section title */}
             <div className="mb-10 text-center">
                 <p className="font-accent text-primary-foreground text-4xl">Top Destination</p>
                 <h2 className="font-title text-5xl font-bold">Popular Destination</h2>
@@ -78,7 +55,7 @@ export default function Destination() {
                     className="relative h-[636px] select-none sm:h-[420px]"
                 >
                     {DESTINATIONS.map((item, i) => {
-                        const d = signedDist(activeIndex, i, N) // …,-2,-1,0,1,2,…
+                        const d = signedDist(activeIndex, i, N) // -2..2
                         const absD = Math.abs(d)
                         const isCenter = d === 0
                         const isVisible = absD <= visibleRadius
@@ -91,7 +68,9 @@ export default function Destination() {
                             <article
                                 key={i}
                                 onClick={() => !isCenter && goToIndex(i)}
-                                className={`absolute top-1/2 left-1/2 origin-center overflow-hidden rounded-3xl shadow-md transition-[transform,filter,opacity] duration-500 ease-out ${!isCenter ? 'cursor-pointer' : ''}`}
+                                className={`absolute top-1/2 left-1/2 origin-center overflow-hidden rounded-3xl shadow-md transition-[transform,filter,opacity] duration-500 ease-out ${
+                                    !isCenter ? 'cursor-pointer' : ''
+                                }`}
                                 style={{
                                     width: 288,
                                     height: 424,
@@ -100,19 +79,15 @@ export default function Destination() {
                                     filter: isCenter ? 'none' : 'blur(2px) brightness(0.7)',
                                     opacity: isVisible ? 1 : 0,
                                     pointerEvents: isVisible ? 'auto' : 'none',
-                                    willChange: 'transform, filter, opacity',
                                 }}
                             >
-                                {/* Image */}
                                 <img
                                     src={item.image}
                                     alt={item.name}
                                     className="h-full w-full object-cover"
                                     draggable={false}
                                 />
-
-                                {/* Text overlay */}
-                                <div className="absolute inset-x-0 bottom-0 flex flex-row justify-between bg-gradient-to-t from-black/60 to-transparent p-4 text-white">
+                                <div className="absolute inset-x-0 bottom-0 flex justify-between bg-gradient-to-t from-black/60 to-transparent p-4 text-white">
                                     <div>
                                         <div className="font-title text-2xl font-semibold">
                                             {item.name}
@@ -122,8 +97,8 @@ export default function Destination() {
                                         </div>
                                     </div>
                                     <button
-                                        className={`mt-2 cursor-pointer rounded-full border border-white/60 bg-white/20 px-4 py-1.5 text-xs font-medium backdrop-blur ${
-                                            isCenter ? 'hover:bg-white/40' : ''
+                                        className={`mt-2 rounded-full border border-white/60 bg-white/20 px-4 py-1.5 text-xs font-medium backdrop-blur ${
+                                            !isCenter ? 'hover:bg-white/40' : ''
                                         }`}
                                     >
                                         View All →
