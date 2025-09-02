@@ -79,12 +79,12 @@ export default function DestinationSlider() {
                 <h2 className="text-2xl font-bold">Popular Destination</h2>
             </div>
 
-            <div className="relative mx-auto max-w-5xl">
+            <div className="relative mx-auto">
                 <div
                     ref={trackRef}
                     onTouchStart={handleTouchStart}
                     onTouchEnd={handleTouchEnd}
-                    className="relative h-[380px] select-none sm:h-[420px]"
+                    className="relative h-[636px] select-none sm:h-[420px]"
                 >
                     {orderedIndexes.map((itemIndex, positionIndex) => {
                         // PositionIndex = 0..4, where 2 = center
@@ -100,12 +100,12 @@ export default function DestinationSlider() {
                             <article
                                 key={itemIndex}
                                 onClick={() => isClickable && goToIndex(itemIndex)}
-                                className={`absolute top-1/2 left-1/2 origin-center overflow-hidden rounded-3xl shadow-md transition-[transform,filter] duration-500 ease-out ${
+                                className={`h-100vh absolute top-1/2 left-1/2 w-full origin-center overflow-hidden rounded-3xl shadow-md transition-[transform,filter] duration-500 ease-out ${
                                     isClickable ? 'cursor-pointer' : ''
                                 }`}
                                 style={{
-                                    width: 260,
-                                    height: 380,
+                                    width: 288,
+                                    height: 424,
                                     transform: `translate(-50%,-50%) translateX(${translateX}px) scale(${scale})`,
                                     zIndex,
                                     // apply only if not center
@@ -121,14 +121,18 @@ export default function DestinationSlider() {
                                 />
 
                                 {/* Text overlay */}
-                                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-4 text-white">
-                                    <div className="text-base font-semibold">
-                                        {DESTINATIONS[itemIndex].name}
+                                <div className="absolute inset-x-0 bottom-0 flex flex-row justify-between bg-gradient-to-t from-black/60 to-transparent p-4 text-white">
+                                    <div>
+                                        <div className="font-title text-2xl font-semibold">
+                                            {DESTINATIONS[itemIndex].name}
+                                        </div>
+                                        <div className="text-xs opacity-90">
+                                            {DESTINATIONS[itemIndex].listing} Listing
+                                        </div>
                                     </div>
-                                    <div className="text-xs opacity-90">
-                                        {DESTINATIONS[itemIndex].listing} Listing
-                                    </div>
-                                    <button className="mt-2 rounded-full border border-white/60 bg-white/20 px-4 py-1.5 text-xs font-medium backdrop-blur hover:bg-white/40">
+                                    <button
+                                        className={`mt-2 cursor-pointer rounded-full border border-white/60 bg-white/20 px-4 py-1.5 text-xs font-medium backdrop-blur ${isCenter ?? 'hover:bg-white/40'}`}
+                                    >
                                         View All →
                                     </button>
                                 </div>
