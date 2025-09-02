@@ -79,11 +79,11 @@ export default function Destination() {
                     className="relative h-[380px] select-none sm:h-[420px]"
                 >
                     {ordered.map((idx, visualPos) => {
-                        const delta = visualPos - 2 // -2..2
+                        const delta = visualPos - 2
                         const translateX = delta * 170
                         const scale = 1 - Math.abs(delta) * 0.07
                         const z = 100 - Math.abs(delta)
-                        const blur = Math.abs(delta) >= 2 ? 'blur-[1px]' : 'blur-0'
+                        const blur = Math.abs(delta) >= 1 ? 'blur-[1px]' : 'blur-0'
                         const opacity = 1 - Math.abs(delta) * 0.12
 
                         const clickable = idx !== active
