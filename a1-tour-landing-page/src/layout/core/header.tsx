@@ -3,7 +3,7 @@ import Upper from '@/components/header/upper'
 
 export default function Header() {
     return (
-        <section className="bg-background h-auto w-full border">
+        <section className="bg-background h-auto w-full outline">
             <Upper />
             <Lower />
         </section>
