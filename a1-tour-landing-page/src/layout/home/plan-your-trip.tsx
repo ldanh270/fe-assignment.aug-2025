@@ -4,16 +4,18 @@ import Balloon from '@/components/common/balloon'
 
 import Image from 'next/image'
 
-type Feature = { title: string; desc: string }
+type Feature = { title: string; desc: string; svg: string }
 
 const FEATURES: Feature[] = [
     {
         title: 'Exclusive Trip',
         desc: 'There are many variations of passages of available but the majority.',
+        svg: '/icons/exclusive_trip.svg',
     },
     {
         title: 'Professional Guide',
         desc: 'There are many variations of passages of available but the majority.',
+        svg: 'icons/professional_guide.svg',
     },
 ]
 
@@ -73,35 +75,29 @@ export default function PlanYourTrip() {
                     </p>
 
                     <ul className="mt-6 space-y-4">
-                        {FEATURES.map((f, i) => (
-                            <li key={i} className="flex gap-4">
+                        {FEATURES.map((feature) => (
+                            <li key={feature.title} className="flex gap-4">
                                 {/* circular icon */}
-                                <span className="mt-1 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-teal-50 ring-1 ring-teal-100">
-                                    {/* simple inline icon */}
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        className="h-6 w-6 text-teal-600"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth={1.8}
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
-                                    </svg>
+                                <span className="bg-primary ring-primary mt-1 inline-flex h-20 w-20 shrink-0 items-center justify-center rounded-full ring-1">
+                                    <Image
+                                        src={feature.svg}
+                                        alt="feature icons"
+                                        width={33}
+                                        height={33}
+                                    />
                                 </span>
                                 <div>
-                                    <h3 className="text-lg font-semibold text-slate-800">
-                                        {f.title}
+                                    <h3 className="font-title text-primary-foreground text-2xl font-semibold">
+                                        {feature.title}
                                     </h3>
-                                    <p className="text-slate-600">{f.desc}</p>
+                                    <p className="text-secondary text-[16px]">{feature.desc}</p>
                                 </div>
                             </li>
                         ))}
                     </ul>
 
                     <button
-                        className="group mt-8 inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-white transition hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
+                        className="group mt-8 inline-flex cursor-pointer items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-white transition hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
                         type="button"
                     >
                         Learn More
