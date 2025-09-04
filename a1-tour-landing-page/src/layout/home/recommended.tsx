@@ -49,12 +49,14 @@ export default function Recommended() {
     return (
         <section className="w-full bg-[url('/patterns/bg-light.svg')] bg-cover bg-center py-16">
             <div className="mx-auto max-w-6xl px-4 text-center">
-                {/* Heading */}
-                <p className="font-accent text-secondary text-lg">Best Recommended Places</p>
-                <h2 className="font-title mt-2 text-3xl font-bold">
+                {/* Header */}
+                <p className="font-accent text-primary-foreground text-4xl">
+                    Best Recommended Places
+                </p>
+                <h2 className="font-title text-primary-foreground mt-1 text-5xl font-bold">
                     Popular Destination we offer for all
                 </h2>
-                <p className="text-muted-foreground mx-auto mt-3 max-w-2xl">
+                <p className="text-primary-foreground mx-auto mt-3 max-w-2xl text-lg">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                     incididunt ut labore et dolore magna aliqua.
                 </p>
