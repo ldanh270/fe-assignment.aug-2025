@@ -16,28 +16,28 @@ const DESTINATIONS: Destination[] = [
     {
         title: 'Ghorepani Poon Hill Trek',
         location: '@Bhutan, Pokhara',
-        price: '$569.00/Person',
+        price: '569.00',
         days: '5 Days',
         image: '/recommended/section1.svg',
     },
     {
         title: 'Langtang Valley Trekking',
         location: '@Bhutan, India, Pokhara',
-        price: '$600.00/Person',
+        price: '600.00',
         days: '6 Days',
         image: '/recommended/section2.svg',
     },
     {
         title: 'Short Trek around Pokhara',
         location: '@Bhutan, Nepal, Tibet',
-        price: '$250.00/Person',
+        price: '250.00',
         days: '6 Days',
         image: '/recommended/section3.svg',
     },
     {
         title: 'Island Peak Climbing',
         location: '@Nepal, Pokhara, Tibet',
-        price: '$569.00/Person',
+        price: '569.00',
         days: '3 Days',
         image: '/recommended/section4.svg',
     },
@@ -64,39 +64,47 @@ export default function Recommended() {
                 {/* Cards */}
                 <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                     {DESTINATIONS.map((d, idx) => (
+                        // Each card
                         <div
                             key={idx}
                             className="border-border bg-card flex flex-col overflow-hidden rounded-xl border shadow-sm"
                         >
-                            <div className="relative h-48 w-full">
+                            <div className="relative h-72 w-80">
                                 <Image src={d.image} alt={d.title} fill className="object-cover" />
                             </div>
-                            <div className="flex flex-grow flex-col p-4">
-                                <h3 className="text-base font-semibold">{d.title}</h3>
+                            <div className="flex flex-grow flex-col items-start p-4">
+                                <h3 className="font-title text-lg">{d.title}</h3>
                                 <p className="text-secondary mt-1 text-sm">{d.location}</p>
-                                <p className="text-primary mt-2 text-lg font-bold">{d.price}</p>
+                                <div>
+                                    <span className="mt-2 text-lg font-bold">{`$${d.price}`}</span>
+                                    <span className="text-secondary mt-1 text-sm">/Person</span>
+                                </div>
 
-                                <div className="mt-auto flex items-center justify-between pt-4">
+                                <div className="mt-auto flex w-full items-center justify-between pt-4">
                                     <span className="text-muted-foreground flex items-center gap-1 text-sm">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="h-4 w-4"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={2}
-                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2v-7a2 2 0 00-2-2H5a2 
-                                                2 0 00-2 2v7a2 2 0 002 2z"
-                                            />
-                                        </svg>
+                                        <Image
+                                            src="icons/clock.svg"
+                                            width={16}
+                                            height={16}
+                                            alt="Clock icon"
+                                        />
                                         {d.days}
                                     </span>
-                                    <button className="border-border text-primary hover:bg-element rounded-full border px-3 py-1 text-sm font-medium">
+                                    <button className="border-border hover:bg-element rounded-full border px-3 py-1 text-xs">
                                         Book Now
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            className="ml-1 inline-block h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            aria-hidden="true"
+                                        >
+                                            <path d="M5 12h14" />
+                                            <path d="m12 5 7 7-7 7" />
+                                        </svg>
                                     </button>
                                 </div>
                             </div>
