@@ -74,7 +74,7 @@ export default function PlanYourTrip() {
                         don’t look even slightly.
                     </p>
 
-                    <ul className="mt-6 space-y-4">
+                    <ul className="mt-6 flex flex-col gap-7 space-y-4">
                         {FEATURES.map((feature) => (
                             <li key={feature.title} className="flex gap-4">
                                 {/* circular icon */}
@@ -97,7 +97,7 @@ export default function PlanYourTrip() {
                     </ul>
 
                     <button
-                        className="group mt-8 inline-flex cursor-pointer items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-white transition hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
+                        className="group mt-10 inline-flex cursor-pointer items-center gap-2 rounded-full bg-slate-900 px-8 py-4 text-white transition hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
                         type="button"
                     >
                         Learn More
